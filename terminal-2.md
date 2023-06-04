@@ -14,4 +14,5 @@
 #qwerty@localhost's password: 
 #/dev/pts/0
 #Connection to localhost closed.
-#13.
+#13.potykalsya vrode poluchilos'. reptyr pozvolyaet perenosit processy v druguyu sessiyu terminala. screen pozvolyaet sozdat' okna i pereklyuchat'sya mezhdu nimi po neobhodimosti...
+#14.v pervom variante proiskhodit zapusk komandy v sudo i perenapravlyaetsya v fajl v zakrytyj dlya pol'zovatelya dostupom razdel. vo vtorom sluchae daetsya razreshenie sudo na sozdanie novogo fajla v zakrytom razdele. komandy tee zapisyvaet dannye v fajl iz vyvoda...
