@@ -2,7 +2,7 @@
 #2./usr/share/misc/magic.mgc
 #3.ne znau
 #4.net
-#5. ne ponimay cho hotat
+#5.strace -t /usr/sbin/opensnoop-bpfcc 2>&1 | grep openat 1> opensnoop     v file opensnoop otvet
 #6.execve("/usr/bin/uname", ["uname", "-a"], 0x7fff06323008 /* 54 vars */) = 0
 #	uname({sysname="Linux", nodename="virtual-machine", ...}) = 0
 #	uname({sysname="Linux", nodename="virtual-machine", ...}) = 0
@@ -35,10 +35,7 @@
 #pipefail     the return value of a pipeline is the status of
 #                           the last command to exit with a non-zero status,
 #                           or zero if no command exited with a non-zero status
-#9.
-#
-#
-#R+
+#9. ps -eo stat | grep -v STAT | sort | uniq -c | sort -nr
 #PROCESS STATE CODES
 #       Here are the different values that the s, stat and state output specifiers (header "STAT"
 #       or "S") will display to describe the state of a process:
