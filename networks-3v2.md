@@ -264,7 +264,62 @@ udp6       0      0 :::5353                 :::*                                
 Рисование
 
 #6. Это самостоятельное задание, его выполнение необязательно.
-Установите Nginx, настройте в режиме балансировщика TCP или UDP.
-Установите bird2, настройте динамический протокол маршрутизации RIP.
-Установите Netbox, создайте несколько IP-префиксов, и, используя curl, проверьте работу API.
+#Установите Nginx, настройте в режиме балансировщика TCP или UDP.
 #Ответ
+
+$ sudo nano /etc/hosts
+
+192.168.1.33 test.local
+
+=>
+127.0.0.1       localhost
+127.0.1.1       Ubuntu.virtualbox.org   Ubuntu
+192.168.1.33 test.local
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+$ sudo nano /etc/nginx/sites-available/test.local
+
+upstream backend {
+    server 192.168.1.93:80;
+    server 192.168.1.166:80;
+    server 192.168.1.90:80;
+}
+
+server {
+    listen    80;
+    server_name  test.local;
+    location ~* \.()$ {
+    root   /var/www/test.local;  }
+    location / {
+    client_max_body_size    10m;
+    client_body_buffer_size 128k;
+    proxy_send_timeout   90;
+    proxy_read_timeout   90;
+    proxy_buffer_size    4k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+    proxy_connect_timeout 30s;
+    proxy_pass   http://backend;
+    proxy_set_header   Host   $host;
+    proxy_set_header   X-Real-IP  $remote_addr;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+location ~* /.(jpg|jpeg|gif|png|css|mp3|avi|mpg|txt|js|jar|rar|zip|tar|wav|wmv)$ {
+root    /var/www/test.local;}
+ }
+
+Скрины
+
+#Установите bird2, настройте динамический протокол маршрутизации RIP.
+#Ответ
+
+#Установите Netbox, создайте несколько IP-префиксов, и, используя curl, проверьте работу API.
+#Ответ
+
